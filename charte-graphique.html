@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Charte Graphique — PIMEQ AUDIO SYSTEM</title>
+<meta name="description" content="Document interne : charte graphique et identité visuelle de PIMEQ AUDIO SYSTEM.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="assets/img/logo.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --yellow: #ffd800;
+    --black: #0A0A0A;
+    --dark: #111111;
+    --gray-dark: #1A1A1A;
+    --gray-mid: #2A2A2A;
+    --gray-light: #888;
+    --white: #FFFFFF;
+    --off-white: #F5F0E8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Space Grotesk', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ─── COVER ─── */
+  .cover {
+    height: 100vh;
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    background: var(--black);
+  }
+
+  .cover::before {
+    content: '';
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(245,200,0,0.15) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    animation: pulse 4s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%,100% { transform: translate(-50%,-50%) scale(1); opacity: 0.6; }
+    50% { transform: translate(-50%,-50%) scale(1.3); opacity: 1; }
+  }
+
+  .cover-label {
+    font-size: 11px;
+    letter-spacing: 6px;
+    color: var(--yellow);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    opacity: 0.8;
+  }
+
+  .cover-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(60px, 10vw, 130px);
+    line-height: 0.9;
+    text-align: center;
+    letter-spacing: 4px;
+    z-index: 1;
+  }
+
+  .cover-title span {
+    color: var(--yellow);
+    display: block;
+  }
+
+  .cover-sub {
+    margin-top: 30px;
+    font-size: 13px;
+    letter-spacing: 3px;
+    color: var(--gray-light);
+    text-transform: uppercase;
+    z-index: 1;
+  }
+
+  .cover-line {
+    width: 1px;
+    height: 80px;
+    background: linear-gradient(to bottom, var(--yellow), transparent);
+    margin-top: 40px;
+    z-index: 1;
+  }
+
+  /* ─── SECTIONS ─── */
+  .section {
+    padding: 100px 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 5px;
+    color: var(--yellow);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-label::before {
+    content: '';
+    display: block;
+    width: 30px; height: 1px;
+    background: var(--yellow);
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 5vw, 64px);
+    letter-spacing: 2px;
+    margin-bottom: 60px;
+    line-height: 1;
+  }
+
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, var(--gray-mid), transparent);
+    margin: 0;
+  }
+
+  /* ─── LOGO SECTION ─── */
+  .logo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .logo-card {
+    padding: 60px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    min-height: 280px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .logo-card.bg-black { background: var(--black); border: 1px solid var(--gray-mid); }
+  .logo-card.bg-yellow { background: var(--yellow); }
+  .logo-card.bg-white { background: var(--white); }
+
+  .logo-mockup {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .logo-icon {
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .logo-text-block {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .logo-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 3px;
+    line-height: 1;
+  }
+
+  .logo-tagline {
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    opacity: 0.75;
+    font-style: italic;
+    font-family: 'Instrument Serif', serif;
+  }
+
+  .logo-card-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    opacity: 0.5;
+  }
+
+  /* Icon SVG */
+  .eq-icon {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ─── COLORS ─── */
+  .colors-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    gap: 16px;
+  }
+
+  .color-swatch {
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .swatch-block {
+    height: 160px;
+    width: 100%;
+    position: relative;
+  }
+
+  .swatch-info {
+    padding: 16px;
+    background: var(--gray-dark);
+  }
+
+  .swatch-name {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .swatch-hex {
+    font-size: 11px;
+    color: var(--gray-light);
+    font-family: 'Courier New', monospace;
+    letter-spacing: 1px;
+  }
+
+  .swatch-role {
+    font-size: 10px;
+    color: var(--yellow);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+
+  /* ─── TYPOGRAPHY ─── */
+  .typo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+
+  .typo-card {
+    background: var(--gray-dark);
+    padding: 50px 40px;
+    border-left: 3px solid var(--yellow);
+  }
+
+  .typo-role {
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: var(--yellow);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .typo-demo-display {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 72px;
+    line-height: 1;
+    margin-bottom: 16px;
+    letter-spacing: 3px;
+  }
+
+  .typo-demo-body {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 28px;
+    font-weight: 300;
+    line-height: 1.4;
+    margin-bottom: 16px;
+  }
+
+  .typo-meta {
+    font-size: 11px;
+    color: var(--gray-light);
+    border-top: 1px solid var(--gray-mid);
+    padding-top: 16px;
+    margin-top: 16px;
+    line-height: 1.8;
+  }
+
+  .type-scale {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 40px;
+  }
+
+  .type-scale-row {
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--gray-mid);
+  }
+
+  .type-scale-label {
+    font-size: 10px;
+    color: var(--gray-light);
+    letter-spacing: 2px;
+    width: 80px;
+    flex-shrink: 0;
+  }
+
+  /* ─── USAGE / DO-DONT ─── */
+  .usage-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 60px;
+  }
+
+  .usage-card {
+    padding: 40px;
+    position: relative;
+  }
+
+  .usage-card.do { background: var(--gray-dark); border-top: 3px solid #22C55E; }
+  .usage-card.dont { background: var(--gray-dark); border-top: 3px solid #EF4444; }
+
+  .usage-badge {
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    font-weight: 700;
+  }
+  .usage-badge.do { color: #22C55E; }
+  .usage-badge.dont { color: #EF4444; }
+
+  .usage-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: rgba(255,255,255,0.8);
+  }
+  .usage-item::before { font-size: 16px; flex-shrink: 0; }
+  .usage-card.do .usage-item::before { content: '✓'; color: #22C55E; }
+  .usage-card.dont .usage-item::before { content: '✗'; color: #EF4444; }
+
+  /* ─── MOCKUPS ─── */
+  .mockup-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .mockup-card {
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Social post mockup */
+  .social-post {
+    background: var(--black);
+    border: 1px solid var(--gray-mid);
+    padding: 0;
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .social-bg {
+    flex: 1;
+    background: linear-gradient(135deg, #111 0%, #1a1a1a 50%, #0a0a0a 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .social-bg::before {
+    content: '';
+    position: absolute;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(245,200,0,0.2) 0%, transparent 70%);
+    top: 30%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .social-content {
+    text-align: center;
+    z-index: 1;
+    padding: 20px;
+  }
+
+  .social-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    letter-spacing: 4px;
+    margin-bottom: 8px;
+  }
+
+  .social-sub {
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--yellow);
+    text-transform: uppercase;
+  }
+
+  .social-bar {
+    background: var(--yellow);
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .social-bar-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: var(--black);
+  }
+
+  /* Business card mockup */
+  .bcard-wrap {
+    background: var(--gray-dark);
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    min-height: 280px;
+  }
+
+  .bcard {
+    width: 100%;
+    max-width: 340px;
+    aspect-ratio: 1.75;
+    background: var(--black);
+    border: 1px solid var(--gray-mid);
+    padding: 24px 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .bcard::after {
+    content: '';
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 80px; height: 80px;
+    background: var(--yellow);
+    clip-path: polygon(100% 0, 100% 100%, 0 100%);
+  }
+
+  .bcard-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .bcard-icon {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--yellow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .bcard-brand {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    letter-spacing: 2px;
+  }
+
+  .bcard-tagline {
+    font-size: 8px;
+    font-style: italic;
+    font-family: 'Instrument Serif', serif;
+    color: var(--gray-light);
+  }
+
+  .bcard-bottom { }
+  .bcard-name {
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 2px;
+  }
+  .bcard-role {
+    font-size: 10px;
+    color: var(--yellow);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .bcard-contact {
+    margin-top: 8px;
+    font-size: 9px;
+    color: var(--gray-light);
+    line-height: 1.8;
+  }
+
+  /* Banner mockup */
+  .banner-mock {
+    background: var(--gray-dark);
+    padding: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+  }
+
+  .banner-inner {
+    width: 100%;
+    background: var(--black);
+    border: 1px solid var(--gray-mid);
+    padding: 28px 36px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .banner-inner::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: var(--yellow);
+  }
+
+  .banner-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .banner-icon {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: var(--yellow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .banner-texts {
+    
+  }
+  .banner-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    letter-spacing: 3px;
+    margin-bottom: 2px;
+  }
+  .banner-tag {
+    font-size: 10px;
+    font-style: italic;
+    font-family: 'Instrument Serif', serif;
+    color: var(--gray-light);
+  }
+
+  .banner-cta {
+    background: var(--yellow);
+    color: var(--black);
+    padding: 10px 20px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px;
+    letter-spacing: 2px;
+    border: none;
+    cursor: pointer;
+  }
+
+  /* ─── ICONOGRAPHY ─── */
+  .icon-row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
+
+  .icon-chip {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 16px;
+    background: var(--gray-dark);
+    width: 90px;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray-light);
+    text-align: center;
+  }
+
+  /* ─── GRID DECORATION ─── */
+  .page-section {
+    border-top: 1px solid var(--gray-mid);
+  }
+
+  .section-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 120px;
+    color: rgba(255,255,255,0.03);
+    position: absolute;
+    right: 60px;
+    top: 60px;
+    line-height: 1;
+  }
+
+  .full-bleed {
+    background: var(--yellow);
+    padding: 80px 60px;
+    text-align: center;
+  }
+
+  .full-bleed-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(40px, 6vw, 80px);
+    color: var(--black);
+    letter-spacing: 4px;
+    margin-bottom: 16px;
+  }
+
+  .full-bleed-sub {
+    font-size: 14px;
+    color: rgba(0,0,0,0.6);
+    font-style: italic;
+    font-family: 'Instrument Serif', serif;
+  }
+
+  /* EQ bars animation */
+  .eq-bars {
+    display: flex;
+    gap: 3px;
+    align-items: flex-end;
+    height: 24px;
+  }
+
+  .eq-bar {
+    width: 3px;
+    background: currentColor;
+    border-radius: 1px;
+    animation: eqAnim 1.2s ease-in-out infinite;
+  }
+
+  .eq-bar:nth-child(1) { height: 60%; animation-delay: 0s; }
+  .eq-bar:nth-child(2) { height: 100%; animation-delay: 0.15s; }
+  .eq-bar:nth-child(3) { height: 70%; animation-delay: 0.3s; }
+  .eq-bar:nth-child(4) { height: 90%; animation-delay: 0.1s; }
+  .eq-bar:nth-child(5) { height: 50%; animation-delay: 0.25s; }
+
+  @keyframes eqAnim {
+    0%, 100% { transform: scaleY(1); }
+    50% { transform: scaleY(0.3); }
+  }
+
+  /* Dots on bars */
+  .eq-bars-dots {
+    display: flex;
+    gap: 3px;
+    align-items: center;
+    height: 24px;
+    position: relative;
+  }
+
+  .eq-vline {
+    width: 3px;
+    height: 100%;
+    background: currentColor;
+    border-radius: 1px;
+    position: relative;
+  }
+
+  .eq-dot {
+    position: absolute;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* Footer */
+  footer {
+    background: var(--gray-dark);
+    padding: 40px 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid var(--gray-mid);
+  }
+
+  footer .footer-brand {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 3px;
+    color: var(--yellow);
+  }
+
+  footer .footer-note {
+    font-size: 11px;
+    color: var(--gray-light);
+    text-align: right;
+    line-height: 1.8;
+  }
+</style>
+</head>
+<body>
+<a href="index.html" style="position:fixed; top:18px; left:18px; z-index:999; font-family:'Space Grotesk',sans-serif; font-size:11px; letter-spacing:2px; text-transform:uppercase; color:#F5C800; background:rgba(10,10,10,0.85); border:1px solid #2A2A2A; padding:10px 16px; border-radius:20px; text-decoration:none;">← Retour au site</a>
+
+<!-- COVER -->
+<div class="cover">
+  <p class="cover-label">Charte Graphique & Identité Visuelle</p>
+  <h1 class="cover-title">
+    PIMEQ
+    <span>AUDIO</span>
+    SYSTEM
+  </h1>
+  <p class="cover-sub">L'excellence sonore à votre portée — 2025</p>
+  <div class="cover-line"></div>
+</div>
+
+<!-- 01. LOGO -->
+<div class="page-section">
+  <div class="section" style="position:relative;">
+    <span class="section-num">01</span>
+    <p class="section-label">Section 01</p>
+    <h2 class="section-title">IDENTITÉ LOGO</h2>
+
+    <div class="logo-grid">
+      <!-- Version principale : fond blanc -->
+      <div class="logo-card bg-white">
+        <div class="logo-mockup">
+          <div class="logo-icon" style="background:var(--yellow);">
+            <div class="eq-bars-dots" style="color:#0A0A0A; height:28px; gap:4px;">
+              <div class="eq-vline" style="width:3px;">
+                <div class="eq-dot" style="top:30%;"></div>
+              </div>
+              <div class="eq-vline" style="width:3px;">
+                <div class="eq-dot" style="top:60%;"></div>
+              </div>
+              <div class="eq-vline" style="width:3px;">
+                <div class="eq-dot" style="top:45%;"></div>
+              </div>
+            </div>
+          </div>
+          <div class="logo-text-block">
+            <div class="logo-name" style="color: #000;;">PIMEQ AUDIO SYSTEM</div>
+            <div class="logo-tagline" style="color:black;">L'excellence sonore à votre portée</div>
+          </div>
+        </div>
+        <p class="logo-card-label" style="color:black;">Version principale — fond sombre</p>
+      </div>
+
+      <!-- Version fond jaune -->
+      <div class="logo-card bg-yellow">
+        <div class="logo-mockup">
+          <div class="logo-icon" style="background:#0A0A0A;">
+            <div class="eq-bars-dots" style="color:#F5C800; height:28px; gap:4px;">
+              <div class="eq-vline" style="width:3px;">
+                <div class="eq-dot" style="top:30%;"></div>
+              </div>
+              <div class="eq-vline" style="width:3px;">
+                <div class="eq-dot" style="top:60%;"></div>
+              </div>
+              <div class="eq-vline" style="width:3px;">
+                <div class="eq-dot" style="top:45%;"></div>
+              </div>
+            </div>
+          </div>
+          <div class="logo-text-block">
+            <div class="logo-name" style="color:#0A0A0A;">PIMEQ AUDIO SYSTEM</div>
+            <div class="logo-tagline" style="color:rgba(0,0,0,0.5);">L'excellence sonore à votre portée</div>
+          </div>
+        </div>
+        <p class="logo-card-label" style="color:rgba(0,0,0,0.35);">Version fond jaune — accent</p>
+      </div>
+
+      <!-- Version fond blanc -->
+      <div class="logo-card bg-white">
+        <div class="logo-mockup">
+          <div class="logo-icon" style="background:#0A0A0A;">
+            <div class="eq-bars-dots" style="color:#F5C800; height:28px; gap:4px;">
+              <div class="eq-vline" style="width:3px;">
+                <div class="eq-dot" style="top:30%;"></div>
+              </div>
+              <div class="eq-vline" style="width:3px;">
+                <div class="eq-dot" style="top:60%;"></div>
+              </div>
+              <div class="eq-vline" style="width:3px;">
+                <div class="eq-dot" style="top:45%;"></div>
+              </div>
+            </div>
+          </div>
+          <div class="logo-text-block">
+            <div class="logo-name" style="color:#0A0A0A;">PIMEQ AUDIO SYSTEM</div>
+            <div class="logo-tagline" style="color:rgba(0,0,0,0.4);">L'excellence sonore à votre portée</div>
+          </div>
+        </div>
+        <p class="logo-card-label" style="color:rgba(0,0,0,0.3);">Version fond clair — documents imprimés</p>
+      </div>
+    </div>
+
+    <!-- Zone de protection -->
+    <div style="margin-top:60px; background:var(--gray-dark); padding:40px;">
+      <p class="section-label" style="margin-bottom:20px;">Zone de protection</p>
+      <p style="font-size:13px; color:var(--gray-light); line-height:1.8; max-width:600px;">
+        Une marge de protection équivalente à la hauteur de la lettre « P » de PIMEQ doit être respectée autour du logo. 
+        Aucun autre élément graphique ne doit empiéter sur cette zone. <br><br>
+        La taille minimale d'utilisation est de <strong style="color:white;">120px</strong> en numérique et <strong style="color:white;">30mm</strong> à l'impression.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- 02. COULEURS -->
+<div class="page-section">
+  <div class="section" style="position:relative;">
+    <span class="section-num">02</span>
+    <p class="section-label">Section 02</p>
+    <h2 class="section-title">PALETTE COULEURS</h2>
+
+    <div class="colors-grid">
+      <div class="color-swatch">
+        <div class="swatch-block" style="background:var(--yellow); position:relative;">
+          <div style="position:absolute; bottom:20px; left:20px;">
+            <div class="eq-bars" style="color:#0A0A0A;">
+              <div class="eq-bar"></div>
+              <div class="eq-bar"></div>
+              <div class="eq-bar"></div>
+              <div class="eq-bar"></div>
+              <div class="eq-bar"></div>
+            </div>
+          </div>
+        </div>
+        <div class="swatch-info">
+          <div class="swatch-name">Signal Yellow</div>
+          <div class="swatch-hex">#F5C800</div>
+          <div class="swatch-role">Couleur primaire</div>
+        </div>
+      </div>
+
+      <div class="color-swatch">
+        <div class="swatch-block" style="background:#0A0A0A; border:1px solid #222;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Studio Black</div>
+          <div class="swatch-hex">#0A0A0A</div>
+          <div class="swatch-role">Fond principal</div>
+        </div>
+      </div>
+
+      <div class="color-swatch">
+        <div class="swatch-block" style="background:#1A1A1A; border:1px solid #333;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Deep Charcoal</div>
+          <div class="swatch-hex">#1A1A1A</div>
+          <div class="swatch-role">Fond secondaire</div>
+        </div>
+      </div>
+
+      <div class="color-swatch">
+        <div class="swatch-block" style="background:#888888;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Console Grey</div>
+          <div class="swatch-hex">#888888</div>
+          <div class="swatch-role">Textes secondaires</div>
+        </div>
+      </div>
+
+      <div class="color-swatch">
+        <div class="swatch-block" style="background:#FFFFFF;"></div>
+        <div class="swatch-info" style="background:#333;">
+          <div class="swatch-name">Pure White</div>
+          <div class="swatch-hex">#FFFFFF</div>
+          <div class="swatch-role">Textes principaux</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Règles d'usage des couleurs -->
+    <div style="margin-top:50px; display:grid; grid-template-columns:1fr 1fr 1fr; gap:2px;">
+      <div style="background:var(--yellow); padding:30px; text-align:center;">
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:24px; color:#0A0A0A; letter-spacing:2px;">PIMEQ</div>
+        <div style="font-size:10px; color:rgba(0,0,0,0.6); letter-spacing:2px; margin-top:8px; text-transform:uppercase;">Titres sur jaune</div>
+      </div>
+      <div style="background:#0A0A0A; border:1px solid #222; padding:30px; text-align:center;">
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:24px; color:var(--yellow); letter-spacing:2px;">PIMEQ</div>
+        <div style="font-size:10px; color:rgba(255,255,255,0.3); letter-spacing:2px; margin-top:8px; text-transform:uppercase;">Titres sur noir</div>
+      </div>
+      <div style="background:#fff; padding:30px; text-align:center;">
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:24px; color:#0A0A0A; letter-spacing:2px;">PIMEQ</div>
+        <div style="font-size:10px; color:rgba(0,0,0,0.4); letter-spacing:2px; margin-top:8px; text-transform:uppercase;">Titres sur blanc</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 03. TYPOGRAPHIE -->
+<div class="page-section">
+  <div class="section" style="position:relative;">
+    <span class="section-num">03</span>
+    <p class="section-label">Section 03</p>
+    <h2 class="section-title">TYPOGRAPHIE</h2>
+
+    <div class="typo-grid">
+      <div class="typo-card">
+        <p class="typo-role">Police principale — Titres</p>
+        <div class="typo-demo-display">Bebas Neue</div>
+        <p style="font-family:'Bebas Neue',sans-serif; font-size:20px; letter-spacing:2px; color:var(--yellow);">PIMEQ AUDIO SYSTEM</p>
+        <div class="typo-meta">
+          Police : <strong>Bebas Neue</strong><br>
+          Grammage : Regular (400) — uniquement disponible en majuscules<br>
+          Usage : Titres, noms de marque, accroches, labels, CTAs<br>
+          Espacement lettres : 2px à 6px selon la taille
+        </div>
+      </div>
+
+      <div class="typo-card">
+        <p class="typo-role">Police secondaire — Corps de texte</p>
+        <div class="typo-demo-body">Space Grotesk</div>
+        <p style="font-size:14px; color:rgba(255,255,255,0.7); line-height:1.7;">L'excellence sonore à votre portée. Une marque pensée pour les passionnés d'audio qui exigent le meilleur.</p>
+        <div class="typo-meta">
+          Police : <strong>Space Grotesk</strong><br>
+          Grammages : Light (300), Regular (400), Medium (500), Bold (700)<br>
+          Usage : Corps de texte, descriptions, captions, sous-titres<br>
+          Taille minimale corps : 12px numérique / 9pt impression
+        </div>
+      </div>
+    </div>
+
+    <!-- Échelle typographique -->
+    <div style="margin-top:60px;">
+      <p class="section-label" style="margin-bottom:30px;">Échelle typographique</p>
+      <div class="type-scale">
+        <div class="type-scale-row">
+          <span class="type-scale-label">H1 — 80px</span>
+          <span style="font-family:'Bebas Neue',sans-serif; font-size:52px; letter-spacing:3px; line-height:1;">EXCELLENCE SONORE</span>
+        </div>
+        <div class="type-scale-row">
+          <span class="type-scale-label">H2 — 48px</span>
+          <span style="font-family:'Bebas Neue',sans-serif; font-size:38px; letter-spacing:2px; line-height:1;">Nos Produits Audio</span>
+        </div>
+        <div class="type-scale-row">
+          <span class="type-scale-label">H3 — 28px</span>
+          <span style="font-family:'Bebas Neue',sans-serif; font-size:24px; letter-spacing:1px; color:var(--yellow);">Collection Prestige 2025</span>
+        </div>
+        <div class="type-scale-row">
+          <span class="type-scale-label">Body — 16px</span>
+          <span style="font-family:'Space Grotesk',sans-serif; font-size:16px; line-height:1.6; max-width:500px;">Une qualité sonore qui transcende l'ordinaire. Chaque produit est conçu pour offrir une expérience auditive exceptionnelle.</span>
+        </div>
+        <div class="type-scale-row">
+          <span class="type-scale-label">Caption — 11px</span>
+          <span style="font-family:'Space Grotesk',sans-serif; font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--gray-light);">Référence produit · SKU-2025-001</span>
+        </div>
+        <div class="type-scale-row">
+          <span class="type-scale-label">Tagline</span>
+          <span style="font-family:'Instrument Serif',serif; font-style:italic; font-size:18px; color:var(--gray-light);">L'excellence sonore à votre portée</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 04. ICONOGRAPHIE & ÉLÉMENTS GRAPHIQUES -->
+<div class="page-section">
+  <div class="section" style="position:relative;">
+    <span class="section-num">04</span>
+    <p class="section-label">Section 04</p>
+    <h2 class="section-title">ÉLÉMENTS GRAPHIQUES</h2>
+
+    <!-- Icône principale -->
+    <p style="font-size:12px; letter-spacing:3px; text-transform:uppercase; color:var(--gray-light); margin-bottom:24px;">Icône — variations de taille</p>
+    <div style="display:flex; align-items:flex-end; gap:30px; flex-wrap:wrap; margin-bottom:60px;">
+      <!-- XL -->
+      <div style="text-align:center;">
+        <div style="width:100px; height:100px; background:var(--yellow); border-radius:50%; display:flex; align-items:center; justify-content:center; margin-bottom:12px;">
+          <div style="display:flex; gap:5px; align-items:center; height:48px; color:#0A0A0A;">
+            <div style="width:4px; height:100%; background:currentColor; border-radius:1px; position:relative;"><div style="position:absolute; width:10px; height:10px; border-radius:50%; background:currentColor; left:50%; transform:translateX(-50%); top:25%;"></div></div>
+            <div style="width:4px; height:100%; background:currentColor; border-radius:1px; position:relative;"><div style="position:absolute; width:10px; height:10px; border-radius:50%; background:currentColor; left:50%; transform:translateX(-50%); top:55%;"></div></div>
+            <div style="width:4px; height:100%; background:currentColor; border-radius:1px; position:relative;"><div style="position:absolute; width:10px; height:10px; border-radius:50%; background:currentColor; left:50%; transform:translateX(-50%); top:40%;"></div></div>
+          </div>
+        </div>
+        <div style="font-size:10px; color:var(--gray-light); letter-spacing:2px;">100px</div>
+      </div>
+      <!-- LG -->
+      <div style="text-align:center;">
+        <div style="width:72px; height:72px; background:var(--yellow); border-radius:50%; display:flex; align-items:center; justify-content:center; margin-bottom:12px;">
+          <div style="display:flex; gap:4px; align-items:center; height:34px; color:#0A0A0A;">
+            <div style="width:3px; height:100%; background:currentColor; border-radius:1px; position:relative;"><div style="position:absolute; width:7px; height:7px; border-radius:50%; background:currentColor; left:50%; transform:translateX(-50%); top:25%;"></div></div>
+            <div style="width:3px; height:100%; background:currentColor; border-radius:1px; position:relative;"><div style="position:absolute; width:7px; height:7px; border-radius:50%; background:currentColor; left:50%; transform:translateX(-50%); top:55%;"></div></div>
+            <div style="width:3px; height:100%; background:currentColor; border-radius:1px; position:relative;"><div style="position:absolute; width:7px; height:7px; border-radius:50%; background:currentColor; left:50%; transform:translateX(-50%); top:40%;"></div></div>
+          </div>
+        </div>
+        <div style="font-size:10px; color:var(--gray-light); letter-spacing:2px;">72px</div>
+      </div>
+      <!-- MD -->
+      <div style="text-align:center;">
+        <div style="width:48px; height:48px; background:var(--yellow); border-radius:50%; display:flex; align-items:center; justify-content:center; margin-bottom:12px;">
+          <div style="display:flex; gap:3px; align-items:center; height:22px; color:#0A0A0A;">
+            <div style="width:2px; height:100%; background:currentColor; border-radius:1px; position:relative;"><div style="position:absolute; width:5px; height:5px; border-radius:50%; background:currentColor; left:50%; transform:translateX(-50%); top:25%;"></div></div>
+            <div style="width:2px; height:100%; background:currentColor; border-radius:1px; position:relative;"><div style="position:absolute; width:5px; height:5px; border-radius:50%; background:currentColor; left:50%; transform:translateX(-50%); top:55%;"></div></div>
+            <div style="width:2px; height:100%; background:currentColor; border-radius:1px; position:relative;"><div style="position:absolute; width:5px; height:5px; border-radius:50%; background:currentColor; left:50%; transform:translateX(-50%); top:40%;"></div></div>
+          </div>
+        </div>
+        <div style="font-size:10px; color:var(--gray-light); letter-spacing:2px;">48px</div>
+      </div>
+      <!-- SM -->
+      <div style="text-align:center;">
+        <div style="width:32px; height:32px; background:var(--yellow); border-radius:50%; display:flex; align-items:center; justify-content:center; margin-bottom:12px;">
+          <div style="display:flex; gap:2px; align-items:center; height:14px; color:#0A0A0A;">
+            <div style="width:2px; height:100%; background:currentColor; border-radius:1px;"></div>
+            <div style="width:2px; height:100%; background:currentColor; border-radius:1px;"></div>
+            <div style="width:2px; height:100%; background:currentColor; border-radius:1px;"></div>
+          </div>
+        </div>
+        <div style="font-size:10px; color:var(--gray-light); letter-spacing:2px;">32px</div>
+      </div>
+    </div>
+
+    <!-- Motif graphique / texture -->
+    <p style="font-size:12px; letter-spacing:3px; text-transform:uppercase; color:var(--gray-light); margin-bottom:24px;">Motif — fond texture audio</p>
+    <div style="height:160px; background:var(--gray-dark); display:flex; align-items:center; justify-content:center; overflow:hidden; position:relative;">
+      <!-- Répétition motif EQ -->
+      <div style="display:flex; gap:6px; align-items:flex-end; opacity:0.15;">
+        <script>/* Motif répété */</script>
+        <!-- Fake EQ bars repeated for pattern effect -->
+        <div style="display:flex; gap:4px; align-items:flex-end;">
+          <div style="width:3px; height:40px; background:var(--yellow);"></div>
+          <div style="width:3px; height:80px; background:var(--yellow);"></div>
+          <div style="width:3px; height:55px; background:var(--yellow);"></div>
+          <div style="width:3px; height:70px; background:var(--yellow);"></div>
+          <div style="width:3px; height:30px; background:var(--yellow);"></div>
+          <div style="width:3px; height:90px; background:var(--yellow);"></div>
+          <div style="width:3px; height:65px; background:var(--yellow);"></div>
+          <div style="width:3px; height:45px; background:var(--yellow);"></div>
+          <div style="width:3px; height:100px; background:var(--yellow);"></div>
+          <div style="width:3px; height:50px; background:var(--yellow);"></div>
+          <div style="width:3px; height:75px; background:var(--yellow);"></div>
+          <div style="width:3px; height:35px; background:var(--yellow);"></div>
+          <div style="width:3px; height:85px; background:var(--yellow);"></div>
+          <div style="width:3px; height:60px; background:var(--yellow);"></div>
+          <div style="width:3px; height:40px; background:var(--yellow);"></div>
+          <div style="width:3px; height:95px; background:var(--yellow);"></div>
+          <div style="width:3px; height:55px; background:var(--yellow);"></div>
+          <div style="width:3px; height:70px; background:var(--yellow);"></div>
+          <div style="width:3px; height:80px; background:var(--yellow);"></div>
+          <div style="width:3px; height:45px; background:var(--yellow);"></div>
+          <div style="width:3px; height:65px; background:var(--yellow);"></div>
+          <div style="width:3px; height:30px; background:var(--yellow);"></div>
+          <div style="width:3px; height:90px; background:var(--yellow);"></div>
+          <div style="width:3px; height:50px; background:var(--yellow);"></div>
+          <div style="width:3px; height:75px; background:var(--yellow);"></div>
+        </div>
+      </div>
+      <div style="position:absolute; font-family:'Bebas Neue',sans-serif; font-size:14px; letter-spacing:4px; color:var(--gray-light);">MOTIF FOND — SPECTRE AUDIO</div>
+    </div>
+  </div>
+</div>
+
+<!-- 05. RÈGLES D'USAGE -->
+<div class="page-section">
+  <div class="section" style="position:relative;">
+    <span class="section-num">05</span>
+    <p class="section-label">Section 05</p>
+    <h2 class="section-title">RÈGLES D'USAGE</h2>
+
+    <div class="usage-grid">
+      <div class="usage-card do">
+        <p class="usage-badge do">✓ À FAIRE</p>
+        <div class="usage-item">Utiliser le logo sur fond noir, blanc ou jaune exclusivement</div>
+        <div class="usage-item">Conserver les proportions d'origine du logo sans déformation</div>
+        <div class="usage-item">Respecter la zone de protection autour du logo</div>
+        <div class="usage-item">Employer Bebas Neue pour tous les titres et accroches</div>
+        <div class="usage-item">Associer le jaune #F5C800 avec du noir pour un contraste optimal</div>
+        <div class="usage-item">Utiliser la tagline en italique (Instrument Serif) pour les sous-titres</div>
+      </div>
+
+      <div class="usage-card dont">
+        <p class="usage-badge dont">✗ À ÉVITER</p>
+        <div class="usage-item">Étirer, déformer, pivoter ou redimensionner le logo de manière non proportionnelle</div>
+        <div class="usage-item">Appliquer le logo sur un fond de couleur autre que noir, blanc ou jaune</div>
+        <div class="usage-item">Ajouter des ombres portées, dégradés ou effets sur le logo</div>
+        <div class="usage-item">Utiliser d'autres polices que Bebas Neue et Space Grotesk dans les communications officielles</div>
+        <div class="usage-item">Reproduire le jaune avec une valeur approximative (utiliser strictement #F5C800)</div>
+        <div class="usage-item">Superposer le logo sur des images sans fond neutre ou overlay sombre</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FULL BLEED CTA -->
+<div class="full-bleed">
+  <div style="display:flex; justify-content:center; margin-bottom:20px;">
+    <div style="width:56px; height:56px; background:#0A0A0A; border-radius:50%; display:flex; align-items:center; justify-content:center;">
+      <div style="display:flex; gap:3px; align-items:center; height:26px; color:#F5C800;">
+        <div style="width:3px; height:100%; background:currentColor; border-radius:1px; position:relative;"><div style="position:absolute; width:7px; height:7px; border-radius:50%; background:currentColor; left:50%; transform:translateX(-50%); top:25%;"></div></div>
+        <div style="width:3px; height:100%; background:currentColor; border-radius:1px; position:relative;"><div style="position:absolute; width:7px; height:7px; border-radius:50%; background:currentColor; left:50%; transform:translateX(-50%); top:55%;"></div></div>
+        <div style="width:3px; height:100%; background:currentColor; border-radius:1px; position:relative;"><div style="position:absolute; width:7px; height:7px; border-radius:50%; background:currentColor; left:50%; transform:translateX(-50%); top:40%;"></div></div>
+      </div>
+    </div>
+  </div>
+  <h2 class="full-bleed-title">PIMEQ AUDIO SYSTEM</h2>
+  <p class="full-bleed-sub">L'excellence sonore à votre portée</p>
+</div>
+
+<!-- 06. APPLICATIONS -->
+<div class="page-section">
+  <div class="section" style="position:relative;">
+    <span class="section-num">06</span>
+    <p class="section-label">Section 06</p>
+    <h2 class="section-title">APPLICATIONS</h2>
+
+    <div class="mockup-grid">
+      <!-- Post réseaux sociaux -->
+      <div class="mockup-card">
+        <div class="social-post">
+          <div class="social-bg">
+            <div class="social-content">
+              <div class="social-title">NOUVELLE GAMME<br>PRESTIGE</div>
+              <div class="social-sub">Disponible dès maintenant</div>
+            </div>
+          </div>
+          <div class="social-bar">
+            <div style="display:flex; align-items:center; gap:10px;">
+              <div style="width:26px; height:26px; background:#0A0A0A; border-radius:50%; display:flex; align-items:center; justify-content:center;">
+                <div style="display:flex; gap:2px; height:12px; color:#F5C800;">
+                  <div style="width:2px; height:100%; background:currentColor;"></div>
+                  <div style="width:2px; height:100%; background:currentColor;"></div>
+                  <div style="width:2px; height:100%; background:currentColor;"></div>
+                </div>
+              </div>
+              <span class="social-bar-text">PIMEQ AUDIO SYSTEM</span>
+            </div>
+            <span style="font-size:10px; color:rgba(0,0,0,0.5); letter-spacing:1px; font-family:'Space Grotesk',sans-serif;">pimeq.com</span>
+          </div>
+        </div>
+        <p style="font-size:10px; letter-spacing:2px; color:var(--gray-light); text-align:center; margin-top:12px; text-transform:uppercase;">Post Instagram / Facebook — 1080×1080</p>
+      </div>
+
+      <!-- Carte de visite -->
+      <div>
+        <div class="bcard-wrap">
+          <div class="bcard">
+            <div class="bcard-top">
+              <div class="bcard-icon">
+                <div style="display:flex; gap:2px; height:14px; color:#0A0A0A;">
+                  <div style="width:2px; height:100%; background:currentColor; border-radius:1px; position:relative;"><div style="position:absolute; width:5px; height:5px; border-radius:50%; background:currentColor; left:50%; transform:translateX(-50%); top:20%;"></div></div>
+                  <div style="width:2px; height:100%; background:currentColor; border-radius:1px; position:relative;"><div style="position:absolute; width:5px; height:5px; border-radius:50%; background:currentColor; left:50%; transform:translateX(-50%); top:55%;"></div></div>
+                  <div style="width:2px; height:100%; background:currentColor; border-radius:1px; position:relative;"><div style="position:absolute; width:5px; height:5px; border-radius:50%; background:currentColor; left:50%; transform:translateX(-50%); top:38%;"></div></div>
+                </div>
+              </div>
+              <div>
+                <div class="bcard-brand">PIMEQ AUDIO</div>
+                <div class="bcard-tagline">L'excellence sonore à votre portée</div>
+              </div>
+            </div>
+            <div class="bcard-bottom">
+              <div class="bcard-name">Jean Dupont</div>
+              <div class="bcard-role">Directeur Commercial</div>
+              <div class="bcard-contact">
+                +225 07 00 00 00 00<br>
+                contact@pimeq.com<br>
+                www.pimeq.com
+              </div>
+            </div>
+          </div>
+          <div class="bcard" style="background:var(--yellow); transform:rotate(1deg);">
+            <div style="flex:1; display:flex; align-items:center; justify-content:center;">
+              <div style="text-align:center;">
+                <div style="font-family:'Bebas Neue',sans-serif; font-size:36px; color:#0A0A0A; letter-spacing:4px; line-height:1;">PIMEQ</div>
+                <div style="font-size:9px; letter-spacing:3px; color:rgba(0,0,0,0.5); text-transform:uppercase; margin-top:6px;">Audio System</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p style="font-size:10px; letter-spacing:2px; color:var(--gray-light); text-align:center; margin-top:12px; text-transform:uppercase;">Carte de visite — Recto / Verso</p>
+      </div>
+    </div>
+
+    <!-- Bannière -->
+    <div style="margin-top:40px;">
+      <div class="banner-mock">
+        <div class="banner-inner">
+          <div class="banner-left">
+            <div class="banner-icon">
+              <div style="display:flex; gap:3px; align-items:center; height:22px; color:#0A0A0A;">
+                <div style="width:3px; height:100%; background:currentColor; border-radius:1px; position:relative;"><div style="position:absolute; width:7px; height:7px; border-radius:50%; background:currentColor; left:50%; transform:translateX(-50%); top:25%;"></div></div>
+                <div style="width:3px; height:100%; background:currentColor; border-radius:1px; position:relative;"><div style="position:absolute; width:7px; height:7px; border-radius:50%; background:currentColor; left:50%; transform:translateX(-50%); top:55%;"></div></div>
+                <div style="width:3px; height:100%; background:currentColor; border-radius:1px; position:relative;"><div style="position:absolute; width:7px; height:7px; border-radius:50%; background:currentColor; left:50%; transform:translateX(-50%); top:40%;"></div></div>
+              </div>
+            </div>
+            <div class="banner-texts">
+              <div class="banner-name">PIMEQ AUDIO SYSTEM</div>
+              <div class="banner-tag">L'excellence sonore à votre portée</div>
+            </div>
+          </div>
+          <button class="banner-cta" onclick="window.location.href='index.html'">DÉCOUVRIR</button>
+
+        </div>
+      </div>
+      <p style="font-size:10px; letter-spacing:2px; color:var(--gray-light); text-align:center; margin-top:12px; text-transform:uppercase;">Bannière web — Header / Email</p>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-brand">PIMEQ AUDIO SYSTEM</div>
+    <div style="font-family:'Instrument Serif',serif; font-style:italic; font-size:12px; color:var(--gray-light); margin-top:4px;">L'excellence sonore à votre portée</div>
+  </div>
+  <div class="footer-note">
+    Charte Graphique & Identité Visuelle<br>
+    Document confidentiel — Usage interne uniquement<br>
+    Version 1.0 — 2025
+  </div>
+</footer>
+
+</body>
+</html>
