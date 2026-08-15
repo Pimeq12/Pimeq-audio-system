@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — PIMEQ AUDIO SYSTEM</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+  :root { --black:#111; --gray:#666; --border:#e2e2e2; --accent:#111; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background:#fafafa; color:var(--black); }
+  header { padding:20px 24px; border-bottom:1px solid var(--border); background:#fff; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+  header h1 { font-size:1.1rem; margin:0; }
+  .container { max-width:1100px; margin:0 auto; padding:24px; }
+  .gate { max-width:360px; margin:80px auto; padding:24px; background:#fff; border:1px solid var(--border); border-radius:10px; text-align:center; }
+  .gate input { width:100%; padding:10px 12px; border:1px solid var(--border); border-radius:6px; margin:12px 0; font-size:1rem; }
+  .gate button, .tabs button, .btn { padding:9px 16px; border-radius:6px; border:1px solid var(--black); background:var(--black); color:#fff; cursor:pointer; font-size:0.9rem; }
+  .tabs { display:flex; gap:10px; margin-bottom:18px; }
+  .tabs button.inactive { background:#fff; color:var(--black); }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--border); border-radius:8px; overflow:hidden; }
+  th, td { padding:10px 12px; border-bottom:1px solid var(--border); text-align:left; font-size:0.88rem; vertical-align:top; }
+  th { background:#f3f3f3; font-weight:600; }
+  tr:last-child td { border-bottom:none; }
+  .empty, .error, .loading { padding:30px; text-align:center; color:var(--gray); }
+  .error { color:#b3261e; }
+  .badge { display:inline-block; padding:2px 8px; border-radius:20px; font-size:0.75rem; background:#eee; }
+  .count { color:var(--gray); font-size:0.85rem; }
+</style>
+</head>
+<body>
+
+<div id="gate" class="gate">
+  <h2>Accès admin</h2>
+  <p style="color:#666; font-size:0.9rem;">Entrez la clé admin pour consulter les commandes et messages.</p>
+  <input type="password" id="adminKey" placeholder="Clé admin" />
+  <button class="btn" onclick="unlock()">Entrer</button>
+  <p id="gateError" class="error" style="display:none; padding:0; margin-top:10px; font-size:0.85rem;"></p>
+</div>
+
+<div id="app" style="display:none;">
+  <header>
+    <h1>PIMEQ AUDIO SYSTEM — Tableau de bord</h1>
+    <span class="count" id="lastRefresh"></span>
+  </header>
+  <div class="container">
+    <div class="tabs">
+      <button id="tabCommandes" onclick="showTab('commandes')">Commandes</button>
+      <button id="tabMessages" class="inactive" onclick="showTab('messages')">Messages de contact</button>
+      <button class="btn" style="margin-left:auto; background:#fff; color:var(--black);" onclick="loadAll()">Actualiser</button>
+    </div>
+    <div id="commandesPanel"></div>
+    <div id="messagesPanel" style="display:none;"></div>
+  </div>
+</div>
+
+<script>
+  // Remplace par l'URL de ton déploiement Vercel si cette page n'est pas
+  // hébergée sur le même domaine que les fonctions api/*.js
+  const API_BASE = '';
+
+  let adminKey = localStorage.getItem('pimeq_admin_key') || '';
+
+  function unlock() {
+    const val = document.getElementById('adminKey').value.trim();
+    if (!val) return;
+    adminKey = val;
+    localStorage.setItem('pimeq_admin_key', val);
+    document.getElementById('gate').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    loadAll();
+  }
+
+  function showTab(tab) {
+    document.getElementById('commandesPanel').style.display = tab === 'commandes' ? 'block' : 'none';
+    document.getElementById('messagesPanel').style.display = tab === 'messages' ? 'block' : 'none';
+    document.getElementById('tabCommandes').classList.toggle('inactive', tab !== 'commandes');
+    document.getElementById('tabMessages').classList.toggle('inactive', tab !== 'messages');
+  }
+
+  function fmtDate(iso) {
+    if (!iso) return '—';
+    const d = new Date(iso);
+    return d.toLocaleDateString('fr-FR', { day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' });
+  }
+
+  async function loadAll() {
+    document.getElementById('commandesPanel').innerHTML = '<div class="loading">Chargement…</div>';
+    document.getElementById('messagesPanel').innerHTML = '<div class="loading">Chargement…</div>';
+    document.getElementById('lastRefresh').textContent = 'Actualisé à ' + new Date().toLocaleTimeString('fr-FR');
+
+    try {
+      const res = await fetch(`${API_BASE}/api/list-commandes?key=${encodeURIComponent(adminKey)}`);
+      if (res.status === 401) return authError();
+      const { commandes } = await res.json();
+      renderCommandes(commandes || []);
+    } catch (e) {
+      document.getElementById('commandesPanel').innerHTML = '<div class="error">Erreur de chargement des commandes.</div>';
+    }
+
+    try {
+      const res = await fetch(`${API_BASE}/api/list-contact?key=${encodeURIComponent(adminKey)}`);
+      if (res.status === 401) return authError();
+      const { messages } = await res.json();
+      renderMessages(messages || []);
+    } catch (e) {
+      document.getElementById('messagesPanel').innerHTML = '<div class="error">Erreur de chargement des messages.</div>';
+    }
+  }
+
+  function authError() {
+    localStorage.removeItem('pimeq_admin_key');
+    document.getElementById('app').style.display = 'none';
+    document.getElementById('gate').style.display = 'block';
+    document.getElementById('gateError').style.display = 'block';
+    document.getElementById('gateError').textContent = 'Clé incorrecte.';
+  }
+
+  function renderCommandes(rows) {
+    const el = document.getElementById('commandesPanel');
+    if (!rows.length) { el.innerHTML = '<div class="empty">Aucune commande pour le moment.</div>'; return; }
+    el.innerHTML = `
+      <table>
+        <thead><tr>
+          <th>Date</th><th>Offre</th><th>Nom</th><th>Téléphone</th><th>Email</th>
+          <th>Adresse</th><th>Date événement</th><th>Détails</th><th>Statut</th>
+        </tr></thead>
+        <tbody>
+          ${rows.map(r => `
+            <tr>
+              <td>${fmtDate(r.created_at)}</td>
+              <td><span class="badge">${r.offre}</span></td>
+              <td>${r.nom}</td>
+              <td>${r.telephone}</td>
+              <td>${r.email}</td>
+              <td>${r.adresse}</td>
+              <td>${r.date_evenement || '—'}</td>
+              <td>${r.details || '—'}</td>
+              <td>${r.statut}</td>
+            </tr>`).join('')}
+        </tbody>
+      </table>`;
+  }
+
+  function renderMessages(rows) {
+    const el = document.getElementById('messagesPanel');
+    if (!rows.length) { el.innerHTML = '<div class="empty">Aucun message pour le moment.</div>'; return; }
+    el.innerHTML = `
+      <table>
+        <thead><tr>
+          <th>Date</th><th>Nom</th><th>Téléphone</th><th>Email</th><th>Sujet</th><th>Message</th><th>Statut</th>
+        </tr></thead>
+        <tbody>
+          ${rows.map(r => `
+            <tr>
+              <td>${fmtDate(r.created_at)}</td>
+              <td>${r.nom}</td>
+              <td>${r.telephone}</td>
+              <td>${r.email}</td>
+              <td>${r.sujet || '—'}</td>
+              <td>${r.message}</td>
+              <td>${r.statut}</td>
+            </tr>`).join('')}
+        </tbody>
+      </table>`;
+  }
+
+  showTab('commandes');
+  if (adminKey) {
+    document.getElementById('gate').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    loadAll();
+  }
+</script>
+
+</body>
+</html>
