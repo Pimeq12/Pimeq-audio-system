@@ -1,75 +1,93 @@
-import { Resend } from 'resend';
-import { createClient } from '@supabase/supabase-js';
-
-const resend = new Resend(process.env.RESEND_API_KEY);
-const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY
-);
-
 export default async function handler(req, res) {
-  // CORS basique pour autoriser les appels depuis GitHub Pages
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  if (req.method === 'OPTIONS') return res.status(200).end();
-
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Méthode non autorisée' });
-  }
-
-  const { offre, nom, telephone, email, adresse, date, details } = req.body || {};
-
-  if (!offre || !nom || !telephone || !email || !adresse) {
-    return res.status(400).json({ error: 'Champs obligatoires manquants' });
+  if (req.method !== "POST") {
+    return res.status(405).json({ ok: false, error: "Method not allowed" });
   }
 
   try {
-    // 1) Enregistrement en base — source de vérité, même si l'email échoue plus tard
-    const { data: commande, error: dbError } = await supabase
-      .from('commandes')
-      .insert([{
-        offre,
-        nom,
-        telephone,
-        email,
-        adresse,
-        date_evenement: date || null,
-        details: details || null,
-      }])
-      .select()
-      .single();
+    const body = req.body || {};
+    const required = ["name", "phone", "email"];
+    const missing = required.filter((key) => !String(body[key] || "").trim());
 
-    if (dbError) {
-      console.error('Erreur Supabase:', dbError);
-      return res.status(500).json({ error: "Erreur lors de l'enregistrement de la commande" });
-    }
-
-    // 2) Notification par email (ne bloque pas la réussite si Resend échoue :
-    //    la commande est déjà en base et reste consultable dans l'admin)
-    try {
-      await resend.emails.send({
-        from: process.env.ORDER_FROM,
-        to: process.env.ORDER_EMAIL,
-        subject: `Nouvelle commande — Offre ${offre} (${nom})`,
-        html: `
-          <h2>Nouvelle commande — Offre ${offre}</h2>
-          <p><strong>N° commande :</strong> ${commande.id}</p>
-          <p><strong>Nom :</strong> ${nom}</p>
-          <p><strong>Téléphone :</strong> ${telephone}</p>
-          <p><strong>Email :</strong> ${email}</p>
-          <p><strong>Adresse événement :</strong> ${adresse}</p>
-          <p><strong>Date événement :</strong> ${date || 'Non précisée'}</p>
-          <p><strong>Détails :</strong> ${details || 'Aucun'}</p>
-        `,
+    if (missing.length) {
+      return res.status(400).json({
+        ok: false,
+        error: `Champs manquants : ${missing.join(", ")}`
       });
-    } catch (emailError) {
-      console.error('Erreur Resend (commande déjà enregistrée en base):', emailError);
     }
 
-    return res.status(200).json({ success: true, id: commande.id });
-  } catch (err) {
-    console.error(err);
-    return res.status(500).json({ error: 'Erreur serveur' });
+    const apiKey = process.env.RESEND_API_KEY;
+    const to = process.env.ORDER_EMAIL || "pimeqaudiosystem@gmail.com";
+    const from = process.env.ORDER_FROM || "PIMEQ Audio System <onboarding@resend.dev>";
+
+    if (!apiKey) {
+      return res.status(500).json({
+        ok: false,
+        error: "RESEND_API_KEY n'est pas configurée."
+      });
+    }
+
+    const esc = (v) => String(v ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+
+    const fields = [
+      ["Nom", body.name],
+      ["Téléphone", body.phone],
+      ["E-mail", body.email],
+      ["Offre / service", body.offer || body.service || ""],
+      ["Date de l'événement", body.date || ""],
+      ["Lieu", body.location || body.lieu || ""],
+      ["Budget", body.budget || ""],
+      ["Message", body.message || ""]
+    ];
+
+    const rows = fields
+      .filter(([, value]) => String(value ?? "").trim() !== "")
+      .map(([label, value]) =>
+        `<tr><td style="padding:8px;font-weight:600;border-bottom:1px solid #eee">${esc(label)}</td><td style="padding:8px;border-bottom:1px solid #eee">${esc(value)}</td></tr>`
+      ).join("");
+
+    const html = `
+      <div style="font-family:Arial,sans-serif;max-width:700px;margin:auto">
+        <h2>Nouvelle commande — PIMEQ Audio System</h2>
+        <p>Une nouvelle demande de commande vient d'être reçue depuis le site.</p>
+        <table style="width:100%;border-collapse:collapse">${rows}</table>
+      </div>
+    `;
+
+    const response = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${apiKey}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        from,
+        to: [to],
+        reply_to: body.email,
+        subject: `Nouvelle commande PIMEQ — ${body.name}`,
+        html
+      })
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      console.error("Resend error:", result);
+      return res.status(502).json({
+        ok: false,
+        error: "Le service d'e-mail a refusé l'envoi."
+      });
+    }
+
+    return res.status(200).json({ ok: true, id: result.id });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      ok: false,
+      error: "Erreur interne lors de l'envoi de la commande."
+    });
   }
 }
